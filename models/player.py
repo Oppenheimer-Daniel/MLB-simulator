@@ -1,4 +1,5 @@
 import random
+import math as Math
 
 class Player:
     def __init__(self, name, contact, power, discipline):
@@ -6,7 +7,7 @@ class Player:
         self.contact = contact 
         self.power = power 
         self.discipline = discipline
-        self.stats = {"AB": 0, "H": 0, "1B": 0, "2B": 0, "3B": 0, "HR": 0, "BB": 0}
+        self.stats = {"AB": 0, "H": 0, "1B": 0, "2B": 0, "3B": 0, "HR": 0, "BB": 0, "SO": 0}
 
     def get_hit_probability(self):
         """
@@ -21,6 +22,26 @@ class Player:
             return max(0.10, base - (50 - self.contact) * slope)
         else:
             return base + (self.contact - 50) * slope
+        
+    def get_strike_out_probability(self):
+        """
+        Strikeout probability based on both Contact and Discipline.
+        Average of contact and discipline determines strikeout rate:
+        - Avg = 50  → 21% strikeout rate
+        - Avg = 100 → 15% strikeout rate
+        - Avg = 25  → 27% strikeout rate
+        """
+        avg_skill = (self.contact + self.discipline) / 2
+        base = 0.21  # 21% at average skill (50)
+        slope = (0.15 - base) / 50  # decreases 0.06 from 50→100
+
+        if avg_skill < 50:
+            # below-average skill → *more* strikeouts
+            return base + (50 - avg_skill) * (-slope)  # reverse slope direction
+        else:
+            # above-average skill → fewer strikeouts
+            return base + (avg_skill - 50) * slope
+
         
     def get_walk_probability(self):
         """
@@ -76,6 +97,9 @@ class Player:
             self.stats["AB"] -= 1  # Walks don't count as at-bats
             return f"{self.name} walked"
         else:
+            if random.random() < self.get_strike_out_probability():
+                self.stats["SO"] += 1
+                return f"{self.name} struck out"
             return f"{self.name} made an out"
 
     def print_stats(self):
@@ -85,4 +109,4 @@ class Player:
         ops = obp + slg
         print(f"{self.name} Stats:")
         print(f"AB: {self.stats['AB']}, H: {self.stats['H']}, AVG: {avg:.3f}, OBP: {obp:.3f}, SLG: {slg:.3f}, OPS: {ops:.3f}")
-        print(f"1B: {self.stats['1B']}, 2B: {self.stats['2B']}, 3B: {self.stats['3B']}, HR: {self.stats['HR']}, BB: {self.stats['BB']}")
+        print(f"1B: {self.stats['1B']}, 2B: {self.stats['2B']}, 3B: {self.stats['3B']}, HR: {self.stats['HR']}, BB: {self.stats['BB']}, SO: {self.stats['SO']}")
