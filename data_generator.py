@@ -10,11 +10,12 @@ with open("data/astros.csv") as f:
         name = row["player"]
         contact = int(row["contact"])   
         power = int(row["power"])       
+        discipline = int(row["discipline"])    
 
-        players.append(Player(name, contact, power))
+        players.append(Player(name, contact, power, discipline))
 
 # Simulate 100 at-bats per player
 for p in players:
-    for _ in range(100):
+    for _ in range(600):
         p.simulate_at_bat()
     p.print_stats()

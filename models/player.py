@@ -1,11 +1,12 @@
 import random
 
 class Player:
-    def __init__(self, name, contact, power):
+    def __init__(self, name, contact, power, discipline):
         self.name = name
         self.contact = contact 
         self.power = power 
-        self.stats = {"AB": 0, "H": 0, "1B": 0, "2B": 0, "3B": 0, "HR": 0}
+        self.discipline = discipline
+        self.stats = {"AB": 0, "H": 0, "1B": 0, "2B": 0, "3B": 0, "HR": 0, "BB": 0}
 
     def get_hit_probability(self):
         """
@@ -15,11 +16,25 @@ class Player:
         Linear scale between those.
         """
         base = 0.24
-        slope = (0.32 - 0.24) / 50 
+        slope = (0.32 - base) / 50 
         if self.contact < 50:
             return max(0.10, base - (50 - self.contact) * slope)
         else:
             return base + (self.contact - 50) * slope
+        
+    def get_walk_probability(self):
+        """
+        Map contact to chance of getting a walk.
+        50 discpline = 9% walk rate
+        100 disciple = 22% walk rate
+        Linear scale between those.
+        """
+        base = 0.09
+        slope = (0.22 - base) / 50 
+        if self.discipline < 50:
+            return max(0.10, base - (50 - self.discipline) * slope)
+        else:
+            return base + (self.discipline - 50) * slope
 
     def get_hit_distribution(self):
         """
@@ -46,8 +61,7 @@ class Player:
 
     def simulate_at_bat(self):
         self.stats["AB"] += 1
-        hit_chance = self.get_hit_probability()
-        if random.random() < hit_chance:
+        if random.random() < self.get_hit_probability():
             # Decide hit type
             self.stats["H"] += 1
             distribution = self.get_hit_distribution()
@@ -57,11 +71,18 @@ class Player:
             )[0]
             self.stats[outcome] += 1
             return f"{self.name} got a {outcome}"
+        elif random.random() < self.get_walk_probability():
+            self.stats["BB"] += 1
+            self.stats["AB"] -= 1  # Walks don't count as at-bats
+            return f"{self.name} walked"
         else:
             return f"{self.name} made an out"
 
     def print_stats(self):
         avg = self.stats["H"] / self.stats["AB"] if self.stats["AB"] > 0 else 0
+        obp = (self.stats["H"] + self.stats["BB"]) / (self.stats["AB"] + self.stats["BB"]) if (self.stats["AB"] + self.stats["BB"]) > 0 else 0
+        slg = (self.stats["1B"] + 2 * self.stats["2B"] + 3 * self.stats["3B"] + 4 * self.stats["HR"]) / self.stats["AB"] if self.stats["AB"] > 0 else 0
+        ops = obp + slg
         print(f"{self.name} Stats:")
-        print(f"AB: {self.stats['AB']}, H: {self.stats['H']}, AVG: {avg:.3f}")
-        print(f"1B: {self.stats['1B']}, 2B: {self.stats['2B']}, 3B: {self.stats['3B']}, HR: {self.stats['HR']}")
+        print(f"AB: {self.stats['AB']}, H: {self.stats['H']}, AVG: {avg:.3f}, OBP: {obp:.3f}, SLG: {slg:.3f}, OPS: {ops:.3f}")
+        print(f"1B: {self.stats['1B']}, 2B: {self.stats['2B']}, 3B: {self.stats['3B']}, HR: {self.stats['HR']}, BB: {self.stats['BB']}")
