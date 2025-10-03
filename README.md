@@ -1,24 +1,30 @@
 # ⚾ MLB Simulation Project (IN PROGRESS)
 
-## 🚧 Status: Active Development
+A Python-based simulation engine to model MLB games, players, and seasons.
 
-This project is currently under active development. Features and structure are subject to change. Please note that the code is not yet stable or complete.
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![Status](https://img.shields.io/badge/status-active--development-yellow)
 
 ## 🎯 Project Goal
-
-The primary goal of this Python project is to create a realistic simulation engine for Major League Baseball (MLB) games and seasons. The simulation aims to accurately predict game outcomes and season standings based on historical and current player data.
+The goal of this project is to create a realistic simulation engine for Major League Baseball (MLB) games and seasons. The simulation aims to predict game outcomes and season standings based on historical and current player data. 
 
 ## ✨ Planned Features
+- **Core Game Engine:** Logic to simulate pitch-by-pitch and plate appearances  
+- **Player Data Integration:** Import real-world player stats (BA, OBP, ERA, etc.)  
+- **Season Simulation:** Full 162-game schedule for all 30 teams  
+- **Data Output:** Generate summary stats and playoff odds  
 
-* **Core Game Engine:** Logic to simulate individual pitch-by-pitch and plate appearances.
-* **Player Data Integration:** Import and use real-world player statistics (e.g., career batting average, pitching ERA) as probability drivers.
-* **Season Simulation:** Ability to run full 162-game seasons for all 30 teams.
-* **Data Output:** Generation of summary statistics and playoff odds.
+## 🛠️ Current Stage
+- Implemented: `Player` class with attributes, hit logic, power mapping  
+- Next up: Walks, strikeouts, and OBP logic  
 
-## 🛠️ Getting Started (Current Stage)
-
-For now, the project is a local development environment. Once the core logic is stable, instructions on how to clone, set up, and run the simulation will be added here.
+## 🗺️ Roadmap
+- [x] Player class with base hit logic  
+- [ ] Walks & strikeouts simulation  
+- [ ] Team class with lineup management  
+- [ ] Game engine (9 innings, scoring, base-running)  
+- [ ] Season simulation (full schedule)  
+- [ ] Web scraping integration (MLB.com, BR, Savant)  
 
 ## 💡 Feedback
-
-Any suggestions or ideas are welcome, but please note that the main focus at this stage is on developing the foundational simulation logic.
+Suggestions are welcome! At this stage, the main focus is building the core simulation logic.
