@@ -1,0 +1,31 @@
+team,city,abbreviation,division,league,ballpark ,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,contact,power,speed,fielding,pitching,avg,obp,slg,ops,hr,rbi,AVG,OBP,SLG,OPS,HR,RBI,BB,SO,discipline
+Angels,Los Angeles,LAA,West,AL,Angel Statdium ,,,,,29,22,80,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26
+Rangers,Texas,TEX,West,AL,Globe Life Field ,,,,,29,70,43,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,82
+Astros,Houston,HOU,West,AL,Minute Maid Park ,,,,,33,40,26,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,78
+Athletics,Las Vegas,OAK,West,AL,Sutter Health Park ,,,,,85,49,57,37,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26
+Mariners,Seattle,SEA,West,AL,T-Mobile Park ,,,,,49,76,61,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32
+Twins,Minnesota,MIN,Central,AL,Target Field ,,,,,91,93,95,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92
+Guardians,Cleveland,CLE,Central,AL,Progressive Field ,,,,,96,30,68,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,76
+Tigers,Detroit,DET,Central,AL,Comerica Park ,,,,,80,55,76,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21
+White Sox,Chicago,CHI,Central,AL,Gauranteed Rate Field ,,,,,29,27,27,63,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,51
+Royals,Kansas City,KC,Central,AL,Kauffman Stadium ,,,,,82,31,50,43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,62
+Yankees,New York,NYY,East,AL,Yankee Stadium ,,,,,50,71,41,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50
+Red Sox,Boston,BOS,East,AL,Fenway Park ,,,,,91,70,29,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,41
+Blue Jays,Toronto,TOR,East,AL,Rogers Centre ,,,,,46,75,46,83,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38
+Orioles,Baltimore,BAL,East,AL,Camden Yards ,,,,,68,42,93,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,82
+Rays,Tampa Bay,TBR,East,AL,George M. Steinbrenner Field ,,,,,100,35,66,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,75
+Dodgers,Los Angeles,LAD,West,NL,Dodger Stadium ,,,,,86,56,99,99,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83
+Padres,San Diego,SDP,West,NL,Petco Park ,,,,,96,56,37,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99
+Giants,San Fransisco,SF,West,NL,Oracle Park ,,,,,62,75,82,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40
+Diamondbacks,Arizona,ARI,West,NL,Chase Field ,,,,,56,53,33,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30
+Rockies,Colorado,COL,West,NL,Coors Field ,,,,,46,85,26,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28
+Cardinals,St. Louis,STL,Central,NL,Busch Stadium ,,,,,44,86,69,98,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69
+Cubs,Chicago,CHI,Central,NL,Wrigley Field ,,,,,73,35,60,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,66
+Brewers,Milwaukee,MIL,Central,NL,American Family Field ,,,,,29,25,37,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91
+Pirates,Pittsburgh,PIT,Central,NL,PNC Park ,,,,,23,77,49,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55
+Reds,Cincinnati,CIN,Central,NL,Great American Ball Park ,,,,,67,54,64,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,58
+Braves,Atlanta,ATL,East,NL,Truist Park ,,,,,80,91,80,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,98
+Phillies,Philadelphia,PHI,East,NL,Citizens Bank Park ,,,,,82,85,67,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94
+Mets,New York,NYM,East,NL,Citi Field ,,,,,33,97,36,83,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,39
+Nationals,Washington,WAS,East,NL,Nationals Park ,,,,,51,72,53,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20
+Marlins,Miami,MIA,East,NL,LoanDepot Park ,,,,,53,58,55,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,64
