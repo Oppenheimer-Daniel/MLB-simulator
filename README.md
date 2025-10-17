@@ -15,8 +15,8 @@ The goal of this project is to create a realistic simulation engine for Major Le
 - **Data Output:** Generate summary stats and playoff odds  
 
 ## 🛠️ Current Stage
-- Implemented: `Player` class with attributes, hit logic, power mapping  
-- Next up: Walks, strikeouts, and OBP logic  
+- Implemented: Walks, strikeouts, and OBP logic  
+- Next up: Update 'team' class to create lineup management
 
 ## 🗺️ Roadmap
 - [x] Player class with base hit logic  
