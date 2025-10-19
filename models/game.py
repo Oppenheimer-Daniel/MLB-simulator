@@ -1,4 +1,5 @@
 from team import Team
+import random
 
 class Game:
     def __init__(self, home_team: Team, away_team: Team):
@@ -75,27 +76,53 @@ class Game:
         return runs
 
 
-    def play_game(self):
+    def simulate_game(self):
         print("\n⚾ Starting Game Simulation ⚾")
+
         for inning in range(1, 10):
             self.inning = inning
 
-            # Top half
+            # --- Top of inning ---
             self.half = "top"
-            self.score["away"] += self.play_half_inning(self.away)
+            away_runs = self.play_half_inning(self.away)
+            self.score["away"] += away_runs
 
-            # Bottom half
+            # --- Bottom of inning ---
+            # If it's the 9th (or later) and home team is already winning after top:
+            if inning == 9 and self.score["home"] > self.score["away"]:
+                print(f"\n🏁 Game ends after top of the 9th — home team already ahead.")
+                break
+
             self.half = "bottom"
-            self.score["home"] += self.play_half_inning(self.home)
+            home_runs = self.play_half_inning(self.home)
+            self.score["home"] += home_runs
+
+            # If bottom of the 9th (or later) ends with home team leading, end game.
+            if inning == 9 and self.score["home"] > self.score["away"]:
+                print(f"\n🏁 Walk-off win for {self.home.name} in the 9th!")
+                break
 
             print(f"🏁 End of {inning} — {self.away.name}: {self.score['away']} | {self.home.name}: {self.score['home']}")
 
         print("\n✅ Final Score:")
         print(f"{self.away.name}: {self.score['away']} | {self.home.name}: {self.score['home']}")
 
+        # Determine winner and return results
+        if self.score["away"] > self.score["home"]:
+            winner = self.away.name
+        elif self.score["home"] > self.score["away"]:
+            winner = self.home.name
+        else:
+            winner = random.choice([self.away.name, self.home.name])  # Random tie breaker
+
+        return winner, self.score["away"], self.score["home"]
+
+
+
 if __name__ == "__main__":
     home = Team("Astros", "data/astros.csv")
     away = Team("Yankees", "data/yankees.csv")
 
     game = Game(home, away)
-    game.play_game()
+    winner, away_score, home_score = game.simulate_game()
+

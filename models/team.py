@@ -12,7 +12,7 @@ class Team:
 
     def load_players(self, csv_path):
         """Load 9 players from the given CSV file."""
-        with open(csv_path, newline='') as f:
+        with open(csv_path, newline='', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 # Only add players with numeric attributes
@@ -57,17 +57,3 @@ class Team:
         self.record_team_stats()
         print(f"\n{self.name} Summary:")
         print(f"Hits: {self.stats['H']} | Walks: {self.stats['BB']} | Strikeouts: {self.stats['SO']}")
-
-# -------------------------------
-# ✅ TEST BLOCK (only runs when executed directly)
-# -------------------------------
-if __name__ == "__main__":
-    astros = Team("Astros", "data/astros.csv")
-    astros.print_lineup()
-
-    # Simulate one full lineup cycle
-    for _ in range(9):
-        batter = astros.get_next_batter()
-        print(batter.simulate_at_bat())
-
-    astros.team_summary()
