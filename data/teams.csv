@@ -7,7 +7,7 @@ Mariners,Seattle,SEA,West,AL,T-Mobile Park
 Twins,Minnesota,MIN,Central,AL,Target Field
 Guardians,Cleveland,CLE,Central,AL,Progressive Field
 Tigers,Detroit,DET,Central,AL,Comerica Park
-White Sox,Chicago,CHI,Central,AL,Gauranteed Rate Field
+White Sox,Chicago,CHW,Central,AL,Guaranteed Rate Field
 Royals,Kansas City,KC,Central,AL,Kauffman Stadium
 Yankees,New York,NYY,East,AL,Yankee Stadium
 Red Sox,Boston,BOS,East,AL,Fenway Park
@@ -20,7 +20,7 @@ Giants,San Fransisco,SF,West,NL,Oracle Park
 Diamondbacks,Arizona,ARI,West,NL,Chase Field
 Rockies,Colorado,COL,West,NL,Coors Field
 Cardinals,St. Louis,STL,Central,NL,Busch Stadium
-Cubs,Chicago,CHI,Central,NL,Wrigley Field
+Cubs,Chicago,CHC,Central,NL,Wrigley Field
 Brewers,Milwaukee,MIL,Central,NL,American Family Field
 Pirates,Pittsburgh,PIT,Central,NL,PNC Park
 Reds,Cincinnati,CIN,Central,NL,Great American Ball Park

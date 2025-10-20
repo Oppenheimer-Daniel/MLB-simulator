@@ -2,37 +2,37 @@ import csv
 from player import Player
 import random
 
+
 class Team:
-    def __init__(self, name, csv_path):
+    def __init__(self, name, csv_path, league="Unknown League", division="Unknown Division", ballpark="Unknown Park"):
         self.name = name
+        self.csv_path = csv_path
+        self.league = league
+        self.division = division
+        self.ballpark = ballpark
+
         self.players = []
-        self.load_players(csv_path)
         self.lineup_index = 0
-        self.stats = {"R": 0, "H": 0, "BB": 0, "SO": 0, "E": 0}
+        self.load_players(csv_path)
 
     def load_players(self, csv_path):
-        """Load 9 players from the given CSV file."""
-        with open(csv_path, newline='', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
+        import csv
+        with open(csv_path, newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
             for row in reader:
-                # Only add players with numeric attributes
-                try:
-                    player = Player(
-                        row["player"],
-                        int(row["contact"]),
-                        int(row["power"]),
-                        int(row["discipline"])
-                    )
-                    self.players.append(player)
-                except (ValueError, KeyError):
-                    continue
-
-        # Ensure exactly 9 players
-        if len(self.players) > 9:
-            self.players = self.players[:9]
+                player = Player(
+                    name=row["player"],
+                    contact=float(row["contact"]),
+                    power=float(row["power"]),
+                    speed=float(row["speed"]),
+                    fielding=float(row["fielding"]),
+                    discipline=float(row["discipline"])
+                )
+                self.players.append(player)
 
     def get_next_batter(self):
-        """Return the next player in the lineup (loops back to 1 after 9)."""
+        if not self.players:
+            raise ValueError(f"No players found for {self.name}")
         batter = self.players[self.lineup_index]
         self.lineup_index = (self.lineup_index + 1) % len(self.players)
         return batter

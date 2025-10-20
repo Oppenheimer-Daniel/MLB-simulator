@@ -2,11 +2,13 @@ import random
 import math as Math
 
 class Player:
-    def __init__(self, name, contact, power, discipline):
+    def __init__(self, name, contact, power, discipline, speed, fielding):
         self.name = name
         self.contact = contact 
         self.power = power 
         self.discipline = discipline
+        self.speed = speed
+        self.fielding = fielding
         self.stats = {"AB": 0, "H": 0, "1B": 0, "2B": 0, "3B": 0, "HR": 0, "BB": 0, "SO": 0}
 
     def get_hit_probability(self):
@@ -83,7 +85,6 @@ class Player:
     def simulate_at_bat(self):
         self.stats["AB"] += 1
         if random.random() < self.get_hit_probability():
-            # Decide hit type
             self.stats["H"] += 1
             distribution = self.get_hit_distribution()
             outcome = random.choices(
@@ -94,7 +95,7 @@ class Player:
             return f"{self.name} got a {outcome}"
         elif random.random() < self.get_walk_probability():
             self.stats["BB"] += 1
-            self.stats["AB"] -= 1  # Walks don't count as at-bats
+            self.stats["AB"] -= 1 
             return f"{self.name} walked"
         else:
             if random.random() < self.get_strike_out_probability():

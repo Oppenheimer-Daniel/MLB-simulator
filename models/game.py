@@ -7,15 +7,12 @@ class Game:
         self.away = away_team
         self.score = {"home": 0, "away": 0}
         self.inning = 1
-        self.half = "top"  # "top" or "bottom"
+        self.half = "top" 
 
     def play_half_inning(self, batting_team: Team):
         outs = 0
-        # Bases: first, second, third
         bases = [False, False, False]
         runs = 0
-
-        print(f"\n{batting_team.name} batting (Inning {self.inning}, {self.half})")
 
         while outs < 3:
             batter = batting_team.get_next_batter()
@@ -70,27 +67,18 @@ class Game:
             elif "out" in result or "struck out" in result:
                 outs += 1
 
-            print(result)
-
-        print(f"{batting_team.name} scored {runs} run(s) this half-inning!")
         return runs
 
 
     def simulate_game(self):
-        print("\n⚾ Starting Game Simulation ⚾")
 
         for inning in range(1, 10):
             self.inning = inning
-
-            # --- Top of inning ---
             self.half = "top"
             away_runs = self.play_half_inning(self.away)
             self.score["away"] += away_runs
-
-            # --- Bottom of inning ---
-            # If it's the 9th (or later) and home team is already winning after top:
+        
             if inning == 9 and self.score["home"] > self.score["away"]:
-                print(f"\n🏁 Game ends after top of the 9th — home team already ahead.")
                 break
 
             self.half = "bottom"
@@ -99,21 +87,18 @@ class Game:
 
             # If bottom of the 9th (or later) ends with home team leading, end game.
             if inning == 9 and self.score["home"] > self.score["away"]:
-                print(f"\n🏁 Walk-off win for {self.home.name} in the 9th!")
                 break
 
-            print(f"🏁 End of {inning} — {self.away.name}: {self.score['away']} | {self.home.name}: {self.score['home']}")
 
         print("\n✅ Final Score:")
         print(f"{self.away.name}: {self.score['away']} | {self.home.name}: {self.score['home']}")
 
-        # Determine winner and return results
         if self.score["away"] > self.score["home"]:
             winner = self.away.name
         elif self.score["home"] > self.score["away"]:
             winner = self.home.name
         else:
-            winner = random.choice([self.away.name, self.home.name])  # Random tie breaker
+            winner = random.choice([self.away.name, self.home.name])
 
         return winner, self.score["away"], self.score["home"]
 
