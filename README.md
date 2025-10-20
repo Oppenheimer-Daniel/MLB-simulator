@@ -22,7 +22,7 @@ The goal of this project is to create a realistic simulation engine for Major Le
 - [x] Player class with base hit logic  
 - [x] Walks & strikeouts simulation  
 - [x] Team class with lineup management  
-- [x] Game engine (9 innings, scoring, base-running)  
+- [x] Game engine (9 innings, scoring, base-running, extra innings)  
 - [ ] Season simulation (full schedule)  
 - [ ] Web scraping integration (MLB.com, BR, Savant)  
 
