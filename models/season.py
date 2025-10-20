@@ -28,11 +28,6 @@ class Season:
             return away.name
 
     def play_game(self, home: Team, away: Team):
-        """
-        Play one game where `home` is home team and `away` is away team.
-        Supports Game.simulate_game() -> (winner, away_score, home_score)
-        or Game.play_game() which prints and stores game.score dict.
-        """
         g = Game(home, away)
         # prefer simulate_game if available
         if hasattr(g, "simulate_game"):

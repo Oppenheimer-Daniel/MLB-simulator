@@ -97,17 +97,18 @@ class Game:
             winner = self.away.name
         elif self.score["home"] > self.score["away"]:
             winner = self.home.name
-        else:
-            winner = random.choice([self.away.name, self.home.name])
+        else: # extra innings
+            while (self.score["away"] == self.score["home"]):
+                self.inning += 1
+                self.half = "top"
+                away_runs = self.play_half_inning(self.away)
+                self.score["away"] += away_runs
+
+                self.half = "bottom"
+                home_runs = self.play_half_inning(self.home)
+                self.score["home"] += home_runs
+            winner = self.away.name if self.score["away"] > self.score["home"] else self.home.name
 
         return winner, self.score["away"], self.score["home"]
 
-
-
-if __name__ == "__main__":
-    home = Team("Astros", "data/astros.csv")
-    away = Team("Yankees", "data/yankees.csv")
-
-    game = Game(home, away)
-    winner, away_score, home_score = game.simulate_game()
 
