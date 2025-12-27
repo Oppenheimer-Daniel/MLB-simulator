@@ -4,6 +4,8 @@ import random
 import pandas as pd
 from team import Team
 from game import Game
+from schedule import Schedule
+
 
 class Season:
     def __init__(self, teams):
@@ -48,94 +50,6 @@ class Season:
             winner = home.name if home_score > away_score else away.name
 
         return self._record_game(home, away, home_score, away_score)
-
-    def simulate_season(self):
-        print("\n🏟️ Simulating Full MLB Season...")
-
-        # normalize grouping by league/division
-        leagues = {}
-        for t in self.teams:
-            league = (t.league or "Unknown").strip().upper()
-            division = (t.division or "Unknown").strip().title()
-            leagues.setdefault(league, {}).setdefault(division, []).append(t)
-
-        league_keys = list(leagues.keys())
-        print(f"Detected leagues: {league_keys}")
-
-        # helper
-        def games_played(team: Team):
-            rec = self.records[team.name]
-            return rec["W"] + rec["L"]
-
-        # Divisional games (~13 per opponent)
-        for league, divisions in leagues.items():
-            for div_name, div_teams in divisions.items():
-                for i, t1 in enumerate(div_teams):
-                    for j, t2 in enumerate(div_teams):
-                        if i >= j:
-                            continue
-                        for _ in range(13):
-                            self.play_game(t1, t2)
-
-        # Intra-league non-division games (~6 per opponent)
-        for league, divisions in leagues.items():
-            league_teams = [x for d in divisions.values() for x in d]
-            for i, t1 in enumerate(league_teams):
-                for j, t2 in enumerate(league_teams):
-                    if i >= j:
-                        continue
-                    if t1.division == t2.division:
-                        continue
-                    for _ in range(6):
-                        self.play_game(t1, t2)
-
-        # Interleague games (~3 per opponent, sampled opponents)
-        if len(league_keys) >= 2:
-            # pick two leagues (if more, pick first two keys)
-            key_a, key_b = league_keys[0], league_keys[1]
-            a_teams = [t for d in leagues[key_a].values() for t in d]
-            b_teams = [t for d in leagues[key_b].values() for t in d]
-
-            for t1 in a_teams:
-                opponents = random.sample(b_teams, min(20, len(b_teams)))
-                for t2 in opponents:
-                    for _ in range(3):
-                        self.play_game(t1, t2)
-
-        TARGET = 162
-        teams_list = list(self.teams)
-        def games_played(t): return self.records[t.name]["W"] + self.records[t.name]["L"]
-
-        # While some teams below target, pair them up fairly
-        while True:
-            under = [t for t in teams_list if games_played(t) < TARGET]
-            over = [t for t in teams_list if games_played(t) > TARGET]
-            if not under:
-                break
-
-            t1 = random.choice(under)
-            # choose opponent not itself & not over-limit if possible
-            opp_candidates = [t for t in teams_list if t.name != t1.name and games_played(t) < TARGET]
-            if not opp_candidates:
-                opp_candidates = [t for t in teams_list if t.name != t1.name]
-            t2 = random.choice(opp_candidates)
-
-            # Randomize who is home
-            if random.random() < 0.5:
-                self.play_game(t1, t2)
-            else:
-                self.play_game(t2, t1)
-
-            # If both exceed 162, undo the extra one by subtracting last result (rare)
-            for t in [t1, t2]:
-                gp = games_played(t)
-                if gp > TARGET:
-                    # remove one random win/loss to balance out
-                    if self.records[t.name]["W"] > 0:
-                        self.records[t.name]["W"] -= 1
-                    else:
-                        self.records[t.name]["L"] -= 1
-
 
 
     def print_standings(self):
