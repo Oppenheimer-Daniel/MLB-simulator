@@ -13,13 +13,11 @@ class Season:
         self.records = {team.name: {"W": 0, "L": 0, "R": 0, "RA": 0} for team in teams}
 
     def _record_game(self, home: Team, away: Team, score_home: int, score_away: int):
-        # update runs
         self.records[home.name]["R"] += score_home
         self.records[home.name]["RA"] += score_away
         self.records[away.name]["R"] += score_away
         self.records[away.name]["RA"] += score_home
 
-        # update W/L
         if score_home > score_away:
             self.records[home.name]["W"] += 1
             self.records[away.name]["L"] += 1
@@ -50,6 +48,71 @@ class Season:
             winner = home.name if home_score > away_score else away.name
 
         return self._record_game(home, away, home_score, away_score)
+
+    def simulate_season(self):
+        print("\n🏟️ Generating and Simulating 162-Game MLB Schedule...")
+
+        # 1. Organize teams
+        leagues = {}
+        for t in self.teams:
+            l_name = (t.league or "Unknown").strip().upper()
+            d_name = (t.division or "Unknown").strip().title()
+            leagues.setdefault(l_name, {}).setdefault(d_name, []).append(t)
+
+        schedule = []
+
+        # 2. Divisional Games (13 games per opponent)
+        # Total: 4 opponents * 13 = 52 games
+        for league, divisions in leagues.items():
+            for div_teams in divisions.values():
+                for i, t1 in enumerate(div_teams):
+                    for j, t2 in enumerate(div_teams):
+                        if i < j:
+                            schedule.extend([(t1, t2)] * 13)
+
+        # 3. Intra-league Games (6 games per opponent)
+        # Total: 10 non-div opponents * 6 = 60 games
+        for league, divisions in leagues.items():
+            div_names = list(divisions.keys())
+            for i, d1_name in enumerate(div_names):
+                for d2_name in div_names[i+1:]:
+                    for t1 in divisions[d1_name]:
+                        for t2 in divisions[d2_name]:
+                            schedule.extend([(t1, t2)] * 6)
+
+        # 4. Interleague Games
+        # To hit exactly 162, we fill the remaining slots here.
+        all_teams = list(self.teams)
+        for t in all_teams:
+            current_games = sum(1 for game in schedule if t in game)
+            needed = 162 - current_games
+            
+            if needed > 0:
+                # Find interleague opponents (different league)
+                opponents = [opp for opp in all_teams if opp.league != t.league]
+                # Filter out anyone already at 162
+                valid_opps = [o for o in opponents if sum(1 for g in schedule if o in g) < 162]
+                
+                # Fallback to intra-league if interleague is full
+                if not valid_opps:
+                    valid_opps = [o for o in all_teams if o != t and sum(1 for g in schedule if o in g) < 162]
+
+                for _ in range(needed):
+                    if not valid_opps: break
+                    opp = random.choice(valid_opps)
+                    schedule.append((t, opp))
+                    # Check if opponent is now full
+                    if sum(1 for g in schedule if opp in g) >= 162:
+                        valid_opps.remove(opp)
+
+        # 5. Execute Schedule
+        random.shuffle(schedule)
+        for home, away in schedule:
+            # Randomize home/away for fairness
+            if random.random() > 0.5:
+                self.play_game(home, away)
+            else:
+                self.play_game(away, home)
 
 
     def print_standings(self):
