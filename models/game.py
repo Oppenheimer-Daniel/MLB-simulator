@@ -1,4 +1,4 @@
-from team import Team
+from models.team import Team
 import random
 
 class Game:

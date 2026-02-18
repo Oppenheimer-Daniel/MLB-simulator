@@ -1,11 +1,13 @@
 import csv
-from player import Player
 import random
-
+# Absolute import for running from main.py
+from models.player import Player
 
 class Team:
-    def __init__(self, name, csv_path, league="Unknown League", division="Unknown Division", ballpark="Unknown Park"):
+    def __init__(self, name, city="Unknown City", abbreviation="XXX", csv_path=None, league="Unknown League", division="Unknown Division", ballpark="Unknown Park"):
         self.name = name
+        self.city = city
+        self.abbreviation = abbreviation
         self.csv_path = csv_path
         self.league = league
         self.division = division
@@ -13,22 +15,29 @@ class Team:
 
         self.players = []
         self.lineup_index = 0
-        self.load_players(csv_path)
+        
+        # Only try to load if a path was actually provided
+        if csv_path:
+            self.load_players(csv_path)
 
     def load_players(self, csv_path):
-        import csv
-        with open(csv_path, newline='', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                player = Player(
-                    name=row["player"],
-                    contact=float(row["contact"]),
-                    power=float(row["power"]),
-                    speed=float(row["speed"]),
-                    fielding=float(row["fielding"]),
-                    discipline=float(row["discipline"])
-                )
-                self.players.append(player)
+        try:
+            with open(csv_path, newline='', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    player = Player(
+                        name=row["player"],
+                        contact=float(row["contact"]),
+                        power=float(row["power"]),
+                        speed=float(row["speed"]),
+                        fielding=float(row["fielding"]),
+                        discipline=float(row["discipline"])
+                    )
+                    self.players.append(player)
+        except FileNotFoundError:
+            print(f"⚠️ Warning: Could not find player file at {csv_path}")
+        except Exception as e:
+            print(f"⚠️ Error loading players for {self.name}: {e}")
 
     def get_next_batter(self):
         if not self.players:
@@ -49,6 +58,9 @@ class Team:
     def print_lineup(self):
         """Display batting order."""
         print(f"\n{self.name} Lineup:")
+        if not self.players:
+            print("  (Empty Roster)")
+            return
         for i, p in enumerate(self.players, start=1):
             print(f"{i}. {p.name} (Contact {p.contact}, Power {p.power}, Disc {p.discipline})")
 

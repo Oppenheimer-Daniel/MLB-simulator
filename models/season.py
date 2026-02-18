@@ -2,9 +2,9 @@
 import os
 import random
 import pandas as pd
-from team import Team
-from game import Game
-from schedule import Schedule
+from models.team import Team
+from models.game import Game
+from models.schedule import Schedule
 
 
 class Season:
