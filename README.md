@@ -16,10 +16,10 @@ This isn't just a statistical calculator; it's a playable Franchise Mode. The en
   - Performance-based hit distribution (Power attribute scales HR/2B probability).
 - **Relational Data Loading:** Automatically maps team metadata to individual player rosters via CSV.
 
-🗺️ Roadmap
-[x] Core Engine: Plate appearances, walks, and HR logic.
-[x] Franchise Infrastructure: Interactive menus and 162-game scheduling.
-[ ] Box Scores: Post-game summaries showing individual player performance.
-[ ] Lineup Management: Active UI to swap players in the batting order.
-[ ] Pitching 2.0: Integrating pitcher-specific attributes (Velocity/Control) into the hit probability.
-[ ] Save System: Exporting season progress to JSON/SQLite.
+## 🗺️ Roadmap
+- [x] Core Engine: Plate appearances, walks, and HR logic.
+- [x] Franchise Infrastructure: Interactive menus and 162-game scheduling.
+- [ ] Box Scores: Post-game summaries showing individual player performance.
+- [ ] Lineup Management: Active UI to swap players in the batting order.
+- [ ] Pitching 2.0: Integrating pitcher-specific attributes (Velocity/Control) into the hit probability.
+- [ ] Save System: Exporting season progress to JSON/SQLite.
