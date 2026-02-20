@@ -39,15 +39,14 @@ class Season:
                 # fallback: if simulate_game returns just scores dict
                 away_score = result[0]
                 home_score = result[1]
-                winner = home.name if home_score > away_score else away.name
         else:
             # backward-compatible: call play_game() then read g.score
             g.play_game()
             home_score = g.score.get(home.name, 0)
             away_score = g.score.get(away.name, 0)
-            winner = home.name if home_score > away_score else away.name
 
-        return self._record_game(home, away, home_score, away_score)
+        self._record_game(home, away, home_score, away_score)
+        return g
 
     def simulate_season(self):
         print("\n🏟️ Generating and Simulating 162-Game MLB Schedule...")

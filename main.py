@@ -49,11 +49,11 @@ def play_franchise():
             
             if next_game:
                 away, home = next_game
-                print(f"\n🚀 Next Matchup: {away.name} @ {home.name}")
+                print(f"\nNext Matchup: {away.name} @ {home.name}")
                 
                 # 2. Use your existing Season logic to play the single game
-                winner = season.play_game(home, away)
-                print(f"Outcome: {winner} won!")
+                game = season.play_game(home, away)
+                game.display_box_score()
             else:
                 print("\n🏁 The season is over! No more games in the schedule.")
             

@@ -10,6 +10,12 @@ class Player:
         self.speed = speed
         self.fielding = fielding
         self.stats = {"AB": 0, "H": 0, "1B": 0, "2B": 0, "3B": 0, "HR": 0, "BB": 0, "SO": 0}
+        self.game_stats = {"AB": 0, "H": 0, "HR": 0, "BB": 0, "RBI": 0, "R": 0}
+
+    def reset_game_stats(self):
+        """Wipe the game-day stats clean."""
+        for key in self.game_stats:
+            self.game_stats[key] = 0
 
     def get_hit_probability(self):
         """
